@@ -1,0 +1,1 @@
+headers = wiringPi.h wiringPiI2C.h wiringPiSPI.h

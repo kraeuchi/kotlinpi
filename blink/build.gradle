@@ -1,0 +1,34 @@
+group 'com.nishtahir'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
+        }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:0.2"
+    }
+}
+
+apply plugin: 'konan'
+
+konanInterop {
+    wiringPi {
+        defFile 'wiringPi.def'
+        includeDirs 'src/include/'
+        linkerOpts '-lwiringPi -Lsrc/include/'
+        target 'raspberrypi'
+    }
+}
+
+konanArtifacts {
+    ktpi {
+        inputFiles fileTree('src/main/')
+        useInterop 'wiringPi'
+        target 'raspberrypi'
+    }
+}
